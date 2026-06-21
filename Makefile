@@ -1,59 +1,80 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ncarrera <ncarrera@student.42madrid.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/06/21 22:44:05 by ncarrera          #+#    #+#              #
+#    Updated: 2026/06/21 22:44:07 by ncarrera         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Program requirements and settings as per the spec
 NAME = cub3D
-
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I./headers -I./minilibx-linux -I./get_next_line -I./ft_printf
 
-MLX_PATH = minilibx-linux
-MLX_LIB = $(MLX_PATH)/libmlx.a
-MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
+# Linker flags eg. for readline
+LDFLAGS = -L./ft_printf -lftprintf -L./minilibx-linux -lmlx -lXext -lX11 -lm -lz
 
-GNL_PATH = get_next_line
-PRINTF_PATH = ft_printf
-FT_PRINTF_LIB = $(PRINTF_PATH)/libftprintf.a
+# Libraries and project declarations
+MLX = ./minilibx-linux/libmlx.a
+FT_PRINTF = ./ft_printf/libftprintf.a
+SRCS =	src/core/error_free.c \
+		src/core/main.c \
+		src/core/ft_init.c \
+		src/parsing/map.c \
+		src/parsing/checker.c \
+		src/parsing/checker_utils.c \
+		src/parsing/flood_fill.c \
+		src/engine/game.c \
+		src/engine/raycast.c \
+		src/engine/ft_move.c \
+		src/utils/libft.c \
+		src/utils/utils.c \
+		get_next_line/get_next_line.c \
+		get_next_line/get_next_line_utils.c
 
-INCLUDES = -Iheaders -I$(MLX_PATH) -I$(GNL_PATH) -I$(PRINTF_PATH)
+OBJS = $(SRCS:.c=.o)
 
-CFILES = \
-	src/error_free.c \
-	src/map.c \
-	src/checker.c \
-	src/main.c \
-	src/checker_utils.c \
-	src/ft_init.c \
-	src/ft_move.c \
-	src/flood_fill.c \
-	src/game.c \
-	src/raycast.c \
-	src/libft.c \
-	src/utils.c \
-	$(GNL_PATH)/get_next_line.c \
-	$(GNL_PATH)/get_next_line_utils.c
+# Colours
+NC=\033[0m
+Purple=\033[0;35m
+Cyan=\033[1;36m
+Red=\033[0;31m
+LC=\033[2K
 
-OBJECTS = $(CFILES:.c=.o)
-
+# Make rules and PHONY declarations
 all: $(NAME)
 
-$(MLX_LIB):
-	$(MAKE) -C $(MLX_PATH)
+$(NAME): $(MLX) $(FT_PRINTF) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 
-$(FT_PRINTF_LIB):
-	$(MAKE) -C $(PRINTF_PATH)
+$(MLX):
+	@make -C minilibx-linux -s
 
-$(NAME): $(MLX_LIB) $(FT_PRINTF_LIB) $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) $(FT_PRINTF_LIB) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
+$(FT_PRINTF):
+	@make -C ft_printf -s
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@printf "$(Cyan)Compiling: $(Purple)$<$(NC)\n"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(MAKE) -C $(MLX_PATH) clean
-	$(MAKE) -C $(PRINTF_PATH) clean
-	rm -f $(OBJECTS)
+	@printf "$(Red)Deleting: $(Purple)$(OBJS)$(NC)\n"
+	@rm -f $(OBJS)
+	@make clean -C minilibx-linux -s
+	@make clean -C ft_printf -s
 
 fclean: clean
-	$(MAKE) -C $(PRINTF_PATH) fclean
-	rm -f $(NAME)
+	@printf "$(Red)Deleting: $(Purple)$(NAME)$(NC)\n"
+	@rm -f $(NAME)
+	@make fclean -C ft_printf -s
 
 re: fclean all
+reclean:
+	@$(MAKE) re -s
+	@$(MAKE) clean -s
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re reclean
