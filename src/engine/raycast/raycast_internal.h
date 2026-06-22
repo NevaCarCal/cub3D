@@ -22,6 +22,9 @@ typedef struct s_ray
 	t_texture	*texture;
 } 		t_ray;
 
+void	select_wall_texture(t_data *data, t_ray *ray);
+unsigned int	get_texture_color(t_texture *texture, int x, int y);
+void	get_wall_hit_x(t_data *data, t_ray *ray, double *wall_x);
 void	init_ray(t_data *data, t_ray *ray, int x);
 void	set_step(t_data *data, t_ray *ray);
 void	run_dda(t_data *data, t_ray *ray);

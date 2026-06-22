@@ -12,15 +12,6 @@
 
 #include "raycast_internal.h"
 
-static unsigned int	get_texture_color(t_texture *texture, int x, int y)
-{
-	char	*dst;
-
-	dst = texture->img.addr + (y * texture->img.line_length
-			+ x * (texture->img.bits_per_pixel / 8));
-	return (*(unsigned int *)dst);
-}
-
 static void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
@@ -30,15 +21,6 @@ static void	put_pixel(t_img *img, int x, int y, int color)
 	dst = img->addr + (y * img->line_length
 			+ x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
-}
-
-static void	get_wall_hit_x(t_data *data, t_ray *ray, double *wall_x)
-{
-	if (ray->side == 0)
-		*wall_x = data->pos_y + ray->perp_wall_dist * ray->ray_dir_y;
-	else
-		*wall_x = data->pos_x + ray->perp_wall_dist * ray->ray_dir_x;
-	*wall_x -= floor(*wall_x);
 }
 
 static void	wall_limits(t_ray *ray, int *start, int *end)
