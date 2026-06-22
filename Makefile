@@ -29,7 +29,9 @@ SRCS =	src/core/error_free.c \
 		src/parsing/checker_utils.c \
 		src/parsing/flood_fill.c \
 		src/engine/game.c \
-		src/engine/raycast.c \
+		src/engine/raycast/raycast.c \
+		src/engine/raycast/raycast_cast.c \
+		src/engine/raycast/raycast_draw.c \
 		src/engine/ft_move.c \
 		src/utils/libft.c \
 		src/utils/utils.c \
