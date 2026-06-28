@@ -12,7 +12,7 @@
 
 #include "raycast_internal.h"
 
-static char	map_at(t_data *data, int x, int y)
+static char	ray_map_at(t_data *data, int x, int y)
 {
 	if (y < 0 || x < 0 || y >= data->height)
 		return ('1');
@@ -53,11 +53,7 @@ static void	set_wall_distance(t_ray *ray)
 
 void	run_dda(t_data *data, t_ray *ray)
 {
-	/*
-	** DDA jumps from grid line to grid line. Whichever side distance
-	** is smaller tells us which map square the ray enters next.
-	*/
-	while (map_at(data, ray->map_x, ray->map_y) != '1')
+	while (ray_map_at(data, ray->map_x, ray->map_y) != '1')
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 			step_x_ray(ray);

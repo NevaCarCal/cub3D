@@ -6,7 +6,7 @@
 /*   By: brimarti <brimarti@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:30:52 by brimarti          #+#    #+#             */
-/*   Updated: 2025/06/27 14:30:54 by brimarti         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:07:23 by ncarrera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,5 +145,30 @@ int		count_lines(int fd);
 int		line_length(char *line);
 void	free_map(char **map);
 void	free_data(t_data *data);
+
+int		is_player(char c);
+int		is_valid_char(char c);
+int		is_walkable(char c);
+char	map_at(t_data *data, int row, int col);
+int		rotate_player(int keycode, t_data *data);
+
+char	*skip_spaces(char *str);
+int		is_blank(char *line);
+char	*dup_clean(char *line, t_data *data);
+void	set_texture(char **target, char *line, t_data *data);
+int		parse_number(char **line, t_data *data);
+int		parse_rgb(char *line, t_data *data);
+int		parse_texture(t_data *data, char *p);
+int		parse_floor_color(t_data *data, char *p);
+int		parse_ceiling_color(t_data *data, char *p);
+int		parse_config_line(t_data *data, char *line);
+int		is_map_start(char *line);
+char	*dup_map_line(char *line, t_data *data);
+void	copy_map(t_data *data, char **lines, int start, int total);
+void	parse_file(t_data *data, char **lines, int total);
+void	set_camera(t_data *data);
+void	check_filename(char *argv, t_data *data);
+void	read_lines(char *path, char ***lines, int *total, t_data *data);
+void	free_lines(char **lines);
 
 #endif

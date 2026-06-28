@@ -12,31 +12,7 @@
 
 #include "cub3d.h"
 
-static int	is_player(char c)
-{
-	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
-
-static int	is_valid_char(char c)
-{
-	return (c == ' ' || c == '0' || c == '1' || is_player(c));
-}
-
-static int	is_walkable(char c)
-{
-	return (c == '0' || is_player(c));
-}
-
-static char	map_at(t_data *data, int row, int col)
-{
-	if (row < 0 || col < 0 || row >= data->height)
-		return (' ');
-	if (col >= line_length(data->map[row]))
-		return (' ');
-	return (data->map[row][col]);
-}
-
-static void	save_player(t_data *data, int i, int j)
+void	save_player(t_data *data, int i, int j)
 {
 	data->player_count++;
 	data->player_x = j;
@@ -44,7 +20,7 @@ static void	save_player(t_data *data, int i, int j)
 	data->player_dir = data->map[i][j];
 }
 
-static void	check_map_cell(t_data *data, int i, int j)
+void	check_map_cell(t_data *data, int i, int j)
 {
 	if (!is_valid_char(data->map[i][j]))
 		handle_error(INVALID_CHARS, data);
@@ -52,7 +28,7 @@ static void	check_map_cell(t_data *data, int i, int j)
 		save_player(data, i, j);
 }
 
-static void	check_player_and_chars(t_data *data)
+void	check_player_and_chars(t_data *data)
 {
 	int	i;
 	int	j;
@@ -72,7 +48,7 @@ static void	check_player_and_chars(t_data *data)
 		handle_error(INVALID_PE, data);
 }
 
-static void	check_closed(t_data *data)
+void	check_closed(t_data *data)
 {
 	int	i;
 	int	j;

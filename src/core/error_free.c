@@ -68,7 +68,7 @@ void	handle_error(t_errorlst error, t_data *data)
 	error_msg[PARAMETROS] = "Error en los parametros!\n";
 	error_msg[MALLOCERROR] = "Error Malloc!\n";
 	error_msg[FD] = "Fallo en el fd!\n";
-	error_msg[MLX_ERROR] = "MiniLibX no pudo abrir una ventana. Revisa el entorno grafico/display.\n";
+	error_msg[MLX_ERROR] = "MiniLibX no pudo abrir una ventana.\n";
 	error_msg[IMG_ERROR] = "Error en las imagenes!\n";
 	error_msg[CUB] = "It is not a .cub!\n";
 	error_msg[CONFIG_ERROR] = "Faltan texturas o colores en el archivo .cub!\n";

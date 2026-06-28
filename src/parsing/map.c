@@ -12,11 +12,6 @@
 
 #include "cub3d.h"
 
-static int	is_player(char c)
-{
-	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
-
 static void	put_floor(t_data *data)
 {
 	int	i;
@@ -56,10 +51,6 @@ void	create_map(t_data *data)
 	int	i;
 	int	j;
 
-	/*
-	** Temporary 2D debug renderer kept from the first parser step.
-	** The active cub3D view now uses render_frame() in raycast.c.
-	*/
 	put_floor(data);
 	i = 0;
 	while (data->map[i])

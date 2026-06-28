@@ -6,7 +6,7 @@
 #    By: ncarrera <ncarrera@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/21 22:44:05 by ncarrera          #+#    #+#              #
-#    Updated: 2026/06/21 22:44:07 by ncarrera         ###   ########.fr        #
+#    Updated: 2026/06/28 22:16:43 by ncarrera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,17 +24,24 @@ FT_PRINTF = ./ft_printf/libftprintf.a
 SRCS =	src/core/error_free.c \
 		src/core/main.c \
 		src/core/ft_init.c \
+		src/core/ft_init_utils.c \
+		src/core/ft_init_parse.c \
+		src/core/ft_init_config.c \
+		src/core/ft_init_map.c \
+		src/core/ft_init_camera.c \
 		src/parsing/map.c \
 		src/parsing/checker.c \
 		src/parsing/checker_utils.c \
 		src/parsing/flood_fill.c \
 		src/engine/game.c \
+		src/engine/textures.c \
 		src/engine/raycast/raycast.c \
 		src/engine/raycast/raycast_init.c \
 		src/engine/raycast/raycast_dda.c \
 		src/engine/raycast/raycast_texture.c \
 		src/engine/raycast/raycast_draw.c \
 		src/engine/ft_move.c \
+		src/engine/ft_rotate.c \
 		src/utils/libft.c \
 		src/utils/utils.c \
 		get_next_line/get_next_line.c \
