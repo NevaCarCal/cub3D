@@ -6,7 +6,7 @@
 /*   By: ncarrera <ncarrera@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:30:52 by brimarti          #+#    #+#             */
-/*   Updated: 2026/07/01 15:09:28 by ncarrera         ###   ########.fr       */
+/*   Updated: 2026/07/01 15:21:26 by ncarrera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ typedef struct s_texture
 	int		width;
 	int		height;
 }				t_texture;
+
+typedef struct s_struct_l
+{
+	char	*tmp;
+	int		fd;
+	int		i;
+}				t_struct_l;
+
 
 typedef enum s_errorlst
 {

@@ -6,7 +6,7 @@
 /*   By: ncarrera <ncarrera@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:28:07 by brimarti          #+#    #+#             */
-/*   Updated: 2026/07/01 15:12:41 by ncarrera         ###   ########.fr       */
+/*   Updated: 2026/07/01 15:23:48 by ncarrera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,31 @@ void	check_filename(char *argv, t_data *data)
 
 void	read_lines(char *path, char ***lines, int *total, t_data *data)
 {
-	char	*tmp;
-	int		fd;
-	int		i;
+	t_struct_l	struct_l;
 
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
+	struct_l.fd = open(path, O_RDONLY);
+	if (struct_l.fd < 0)
 		handle_error(FD, data);
-	*total = count_lines(fd);
-	close(fd);
+	*total = count_lines(struct_l.fd);
+	close(struct_l.fd);
 	*lines = malloc(sizeof(char *) * (*total + 1));
 	if (!*lines)
 		handle_error(MALLOCERROR, data);
-	i = 0;
-	while (i <= *total)
-		(*lines)[i++] = NULL;
+	struct_l.i = 0;
+	while (struct_l.i <= *total)
+		(*lines)[struct_l.i++] = NULL;
 	data->file_lines = *lines;
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
+	struct_l.fd = open(path, O_RDONLY);
+	if (struct_l.fd < 0)
 		handle_error(FD, data);
-	i = 0;
-	while (i < *total)
-		(*lines)[i++] = get_next_line(fd);
-	free(get_next_line(fd));
-	(*lines)[i] = NULL;
-	tmp = get_next_line(fd);
-	free(tmp);
-	close(fd);
+	struct_l.i = 0;
+	while (struct_l.i < *total)
+		(*lines)[struct_l.i++] = get_next_line(struct_l.fd);
+	free(get_next_line(struct_l.fd));
+	(*lines)[struct_l.i] = NULL;
+	struct_l.tmp = get_next_line(struct_l.fd);
+	free(struct_l.tmp);
+	close(struct_l.fd);
 }
 
 void	free_lines(char **lines)
