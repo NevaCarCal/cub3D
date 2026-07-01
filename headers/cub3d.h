@@ -110,6 +110,7 @@ typedef struct s_data
 	double		plane_y;
 	char		**map;
 	char		**map_copy;
+	char		**file_lines;
 	int			width;
 	int			height;
 	int			player_count;

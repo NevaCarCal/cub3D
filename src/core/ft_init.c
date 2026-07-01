@@ -59,8 +59,9 @@ static char	*dup_clean(char *line, t_data *data)
 
 static void	read_lines(char *path, char ***lines, int *total, t_data *data)
 {
-	int	fd;
-	int	i;
+	char	*tmp;
+	int		fd;
+	int		i;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
@@ -70,6 +71,10 @@ static void	read_lines(char *path, char ***lines, int *total, t_data *data)
 	*lines = malloc(sizeof(char *) * (*total + 1));
 	if (!*lines)
 		handle_error(MALLOCERROR, data);
+	i = 0;
+	while (i <= *total)
+		(*lines)[i++] = NULL;
+	data->file_lines = *lines;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		handle_error(FD, data);
@@ -77,6 +82,8 @@ static void	read_lines(char *path, char ***lines, int *total, t_data *data)
 	while (i < *total)
 		(*lines)[i++] = get_next_line(fd);
 	(*lines)[i] = NULL;
+	tmp = get_next_line(fd);
+	free(tmp);
 	close(fd);
 }
 
@@ -313,6 +320,7 @@ int	ft_init(t_data *data, char **argv)
 	read_lines(argv[1], &lines, &total, data);
 	parse_file(data, lines, total);
 	free_lines(lines);
+	data->file_lines = NULL;
 	map_checker(data);
 	set_camera(data);
 	return (0);

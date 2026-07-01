@@ -55,6 +55,8 @@ void	free_data(t_data *data)
 {
 	if (data)
 	{
+		if (data->file_lines)
+			free_map(data->file_lines);
 		if (data->map)
 			free_map(data->map);
 		if (data->map_copy)
