@@ -6,42 +6,31 @@ cub3D is a real-time raycasting engine written in C, inspired by the classic Wol
 
 ### Features
 
-- **Raycasting engine**: DDA-based wall detection with perpendicular distance correction to avoid fisheye distortion.
-- **Textured walls**: Four wall textures (North, South, West, East) mapped according to the hit side and wall direction.
-- **Solid floor and ceiling**: Configurable solid colors for the sky and ground.
-- **Player movement**: Smooth collision-aware movement with wall sliding.
-- **Rotation**: Arrow-key rotation combined with forward/backward strafing via `dir_x` / `dir_y` vectors and a camera `plane_x` / `plane_y` vector.
-- **Map parsing**: Validates `.cub` map files for correct syntax, closed walls, and exactly one player spawn.
-- **Error handling**: Custom error system with clean resource deallocation on failure.
-
-### Technical choices
-
-- **Graphics**: MinilibX Linux (X11/MLX).
-- **Math**: `math.h` for trigonometric functions, `fabs`, and floating-point precision.
-- **Map storage**: NULL-terminated array of strings (`char **`), parsed line-by-line with `get_next_line`.
-- **Rendering**: Per-column wall stretching with texture coordinate interpolation (`tex_step` / `tex_pos`) clamped to valid texture bounds.
+- cub3D is a project in which, leveraging the Minilibx library, we will implement what can be seen as the first steps towards making something to the likes of Diablo, Duke Nukem, and others. It currently contains no game logic, and is only a renderization project.
+- It currently does have implementations for, for example, wall collision which is present in the aforementioned games.
+- You can walka round, rotate the camera, configure the colours / textures for the surroundings, and parse any correctly formatted map of your own.
+- All kinds of errors that may be encountered during the execution of this program (Incorrect map, textures, player setting, etc) are handled cleanly and without memory leaks.
 
 ## Instructions
 
 ### Compilation
 
+Once you have cloned / downloaded the repo, you can run:
+
 ```bash
 make
 ```
-
-The Makefile will automatically build the MinilibX Linux library (`minilibx-linux`) and the custom `ft_printf` libraryif they are present, then compile all source files into the `cub3D` binary.
+This will build all the necessary elements from the Minilibx and cub3D, and compile them into a file named `cub3D`.
 
 ### Execution
+
+Inside the same directory you just ran `make` from, you can now run;
 
 ```bash
 ./cub3D maps/basic.cub
 ```
 
-or
-
-```bash
-./cub3D maps/test1000.cub
-```
+This will launch cub3D with the specified map. The argument can be replaced with the path to any custom map of your own, or you can alter the file `basic.cub`.
 
 ### Controls
 
@@ -76,7 +65,7 @@ C R,G,B
 
 - Four texture paths (`NO`, `SO`, `WE`, `EA`) must be valid XPM files.
 - `F` sets floor color, `C` sets ceiling color (RGB 0-255 separated by commas).
-- The map must be rectangular, closed by walls (`1`), and contain exactly one player spawn (`N`, `S`, `E`, or `W`).
+- The map can take any shape as long as it's closed by walls (`1`), and contains exactly one player spawn point (`N`).
 
 ### Cleaning
 
@@ -84,12 +73,13 @@ C R,G,B
 make clean    # removes object files
 make fclean   # removes object files + binary
 make re       # clean + rebuild
+make reclean  # re + clean
 ```
 
 ## Resources
 
 - [Ray Casting (C++) – Ismail Assil](https://ismailassil.medium.com/ray-casting-c-8bfae2c2fc13) — Article explaining the raycasting algorithm, DDA steps, and wall rendering math.
-- [Let's Make a Raycaster! – YouTube playlist by Ckladmlo](https://www.youtube.com/watch?v=gYRrGTC7GtA&list=PLCWsH9Tj9oWyDM4W43VMj5yo2PdyYMGst) — Video tutorial covering pixel drawing, player movement, and texture mapping from scratch.
+- [Let's Make a Raycaster! – YouTube playlist by Ckladmlo](https://www.youtube.com/watch?v=gYRrGTC7GtA&list=PLCWsH9Tj9oWyDM4W43VMj5yo2PdyYMGst) — Video tutorial series covering pixel drawing, player movement, and texture mapping from scratch.
 
 ## AI Usage
 
