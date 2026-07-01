@@ -68,7 +68,6 @@ typedef struct s_struct_l
 	int		i;
 }				t_struct_l;
 
-
 typedef enum s_errorlst
 {
 	PARAMETROS,
