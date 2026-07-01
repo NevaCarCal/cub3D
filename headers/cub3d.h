@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brimarti <brimarti@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: ncarrera <ncarrera@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:30:52 by brimarti          #+#    #+#             */
-/*   Updated: 2025/06/28 22:07:23 by ncarrera         ###   ########.fr       */
+/*   Updated: 2026/07/01 15:09:28 by ncarrera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct s_data
 	double		plane_y;
 	char		**map;
 	char		**map_copy;
+	char		**file_lines;
 	int			width;
 	int			height;
 	int			player_count;
